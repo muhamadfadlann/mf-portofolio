@@ -317,6 +317,11 @@ nav ul li a {
   color: var(--secondaryTextColor);
 }
 
+.projek:hover{
+  opacity: 0.5;
+  cursor: pointer;
+}
+
 /* Skills and Education */
 #skills {
   padding: var(--sectionPadding);
