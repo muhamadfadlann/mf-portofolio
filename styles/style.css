@@ -442,6 +442,10 @@ nav ul li a {
   margin-bottom: 2.5rem;
 }
 
+.contact-item-detail {
+  cursor: pointer;
+}
+
 .contact-item-icon {
   background: var(--thirdBackgroundColor);
   /* padding: 0.8rem 1rem; */
