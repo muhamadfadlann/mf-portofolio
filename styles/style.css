@@ -1,22 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
 
 :root {
-  --primaryTextColor: #232e35; /* Untuk title atau judul */
-  --secondaryTextColor: #656d72; /* Untuk text biasa seperti paragraph contohnya */
-
+  --primaryTextColor: #232e35; /* For titles or headings */
+  --secondaryTextColor: #656d72; /* For regular text like paragraphs */
   --borderColor: #f1f1f1;
-  --lineColor: #d9d9d9; /* untuk line di pre-title */
-
+  --lineColor: #d9d9d9; /* For lines in pre-title */
   --primaryBackgroundColor: #fff;
   --secondaryBackgroundColor: #fbfbfb;
   --thirdBackgroundColor: #f5f3fe;
-
   --primaryIconColor: #7e74f1;
   --primaryIconColorHover: #5d51e8;
-
   --sectionPadding: 6rem 0;
-
   --itemBorderRadius: 0.7rem;
+  --transition: all 0.3s ease-in-out;
 }
 
 * {
@@ -28,66 +24,65 @@
 
 body {
   font-family: "Roboto", sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-strong {
+h1, h2, h3, h4, h5, h6, strong {
   color: var(--primaryTextColor);
+  margin-bottom: 0.5rem;
 }
 
 p {
-  font-size: 1rem; /* 16 px */
-  line-height: 1.9rem; /*30.4 px */
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  line-height: 1.7;
+  margin-bottom: 1rem;
 }
 
-p,
-span,
-label,
-input,
-textarea,
-li {
+p, span, label, input, textarea, li {
   color: var(--secondaryTextColor);
 }
 
 a {
   text-decoration: none;
+  transition: var(--transition);
 }
 
-/* End Preparation */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
+/* Container */
 .main-container {
-  width: 1200px;
+  width: min(1200px, 90%);
   margin: 0 auto;
-}
-
-@media screen and (max-width: 1200px) {
-  .main-container {
-    width: 90%;
-  }
+  padding: 0 1rem;
 }
 
 /* Buttons */
 .btn {
-  padding: 1rem 1.5rem;
+  padding: 0.8rem 1.5rem;
   background: white;
   border: 1.5px solid var(--borderColor);
+  border-radius: 4px;
   cursor: pointer;
-  transition: 0.2s ease-in-out;
+  font-weight: 500;
+  transition: var(--transition);
+  display: inline-block;
 }
 
 .btn:hover {
-  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
 }
 
 /* Titles */
 .section-title {
-  margin: 1rem 0 4rem;
-  font-size: 2rem;
+  margin: 1rem 0 3rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  position: relative;
 }
 
 .pre-title {
@@ -99,6 +94,7 @@ a {
   width: fit-content;
   font-weight: 400;
   font-size: 0.9rem;
+  margin-bottom: 0.5rem;
 }
 
 .pre-title::before {
@@ -115,22 +111,31 @@ a {
 /* Layouts */
 .grid-3 {
   display: grid;
-  /* grid-template-columns: 1fr 1fr 1fr; use this first, use code below when its time for explaining responsive design part */
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
 }
 
 /* --- Logo and Navigation Menu --- */
 .nav {
   display: flex;
   justify-content: space-between;
-  padding: 2rem 0;
+  align-items: center;
+  padding: 1.5rem 0;
+  position: sticky;
+  top: 0;
+  background: var(--primaryBackgroundColor);
+  z-index: 100;
 }
 
 nav ul {
   list-style: none;
   display: flex;
-  gap: 3rem;
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.menu {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 500;
 }
 
 /* Logo */
@@ -138,7 +143,7 @@ nav ul {
   display: flex;
   align-items: center;
   font-weight: 700;
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 3vw, 2rem);
 }
 
 .logo a {
@@ -153,47 +158,84 @@ nav ul li {
 
 nav ul li a {
   color: var(--primaryTextColor);
+  position: relative;
+  padding: 0.3rem 0;
 }
 
-/* Burger - Save for later on video */
-.burger div {
-  width: 25px;
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
   height: 2px;
-  background-color: #000;
-  margin: 7px;
-  transition: all 0.3s;
-  z-index: 99;
+  background-color: var(--primaryIconColor);
+  transition: var(--transition);
 }
 
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+/* Mobile Menu */
 .burger {
   display: none;
+  cursor: pointer;
   z-index: 99;
   position: fixed;
   top: 33px;
   right: 35px;
 }
 
+.burger div {
+  width: 25px;
+  height: 2px;
+  background-color: var(--primaryTextColor);
+  margin: 7px;
+  transition: var(--transition);
+}
+
 /* Hero Section */
 #hero {
-  height: 720px;
+  min-height: 80vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  /* We're not going to use automatic template columns, because we need to know when the columns is go below. So we can exchange the order of the element */
   align-items: center;
+  padding: 2rem 0;
 }
 
 .hero-name {
-  font-size: 3rem;
+  font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 700;
   margin: 0.5rem 0 1rem;
+  line-height: 1.2;
 }
 
 .hero-name span {
   color: var(--primaryIconColor) !important;
+  position: relative;
+}
+
+.hero-name span::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background-color: rgba(126, 116, 241, 0.2);
+  z-index: -1;
 }
 
 .hero-right img {
   width: 90%;
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0); }
 }
 
 .hero-right {
@@ -216,16 +258,24 @@ nav ul li a {
 }
 
 .service {
-  padding: 3rem 2rem;
+  padding: 2.5rem 2rem;
   text-align: center;
   background: var(--primaryBackgroundColor);
   border-radius: var(--itemBorderRadius);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+  transition: var(--transition);
+  height: 100%;
+}
+
+.service:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 .service h4 {
   margin: 1.5rem 0;
   font-weight: 500;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
 }
 
 .service-icon {
@@ -234,18 +284,11 @@ nav ul li a {
   margin: 0 auto;
   padding: 1rem 1.3rem;
   border-radius: 0.5rem;
+  transition: var(--transition);
 }
 
-.service-icon svg {
-  fill: var(--primaryIconColor);
-}
-
-.service-icon {
-  background: var(--thirdBackgroundColor);
-  width: fit-content;
-  margin: 0 auto;
-  padding: 1rem 1.3rem;
-  border-radius: 0.5rem;
+.service:hover .service-icon {
+  transform: scale(1.1);
 }
 
 .service-icon svg {
@@ -259,18 +302,32 @@ nav ul li a {
 
 .portfolio {
   border-radius: var(--itemBorderRadius);
-  overflow: hidden; /* supaya gambar yang diatas itu dia ngikut border radiusnya, karena yang dikasih border radius disini adalah div portfolio ini */
+  overflow: hidden;
   border: 1px solid var(--borderColor);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+  transition: var(--transition);
+  height: 100%;
+}
+
+.portfolio:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .portfolio-cover {
   height: 250px;
+  overflow: hidden;
 }
 
 .portfolio img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: var(--transition);
+}
+
+.portfolio:hover img {
+  transform: scale(1.05);
 }
 
 .portfolio-info {
@@ -289,36 +346,39 @@ nav ul li a {
   font-size: 1.05rem;
 }
 
-.portfolio-title a svg:hover {
-  fill: var(--primaryIconColor);
+.portfolio-title a svg {
+  transition: var(--transition);
 }
 
-.portfolio-title a svg {
-  transition: 0.2s ease-in-out;
+.portfolio-title a svg:hover {
+  fill: var(--primaryIconColor);
+  transform: scale(1.1);
 }
 
 .portfolio-tags {
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   margin: 1rem 0;
 }
 
 .portfolio-tags div {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   border: 1px solid var(--borderColor);
-  padding: 0.4rem 1rem;
+  padding: 0.3rem 0.8rem;
   color: var(--secondaryTextColor);
+  border-radius: 4px;
+  transition: var(--transition);
 }
 
-.portfolio-tags div {
-  font-size: 0.9rem;
-  border: 1px solid var(--borderColor);
-  padding: 0.4rem 1rem;
-  color: var(--secondaryTextColor);
+.portfolio-tags div:hover {
+  background-color: var(--primaryIconColor);
+  color: white;
+  border-color: var(--primaryIconColor);
 }
 
-.projek:hover{
-  opacity: 0.5;
+.projek:hover {
+  opacity: 0.85;
   cursor: pointer;
 }
 
@@ -330,7 +390,6 @@ nav ul li a {
 
 .skills-grid {
   display: grid;
-  /* grid-template-columns: 40% 60%; */
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 3rem;
 }
@@ -357,6 +416,7 @@ nav ul li a {
 
 .education-years {
   margin-bottom: 3rem;
+  font-weight: 500;
 }
 
 /* The dot on the line */
@@ -364,22 +424,42 @@ nav ul li a {
   content: "";
   width: 15px;
   height: 15px;
-  background: var(--borderColor);
+  background: var(--primaryIconColor);
   border-radius: 50%;
   position: absolute;
   left: -6px;
+  transition: var(--transition);
+}
+
+.education:hover .line div:before {
+  transform: scale(1.2);
 }
 
 /* Right side of Skills */
 .skills-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
   margin-top: 1.5rem;
 }
 
 .skills-right ul {
   line-height: 2rem;
   padding: 0 1rem;
+}
+
+.skills-right ul li {
+  position: relative;
+  padding-left: 1.2rem;
+  list-style-type: none;
+}
+
+.skills-right ul li::before {
+  content: "•";
+  color: var(--primaryIconColor);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
 }
 
 /* Contact Section */
@@ -389,7 +469,6 @@ nav ul li a {
 
 .contact {
   display: grid;
-  /* grid-template-columns: 1fr 1fr; */
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 3rem;
 }
@@ -405,8 +484,9 @@ nav ul li a {
   font-family: "Roboto", sans-serif;
   background: var(--secondaryBackgroundColor);
   border: 1px solid var(--borderColor);
-  border-radius: 3px;
+  border-radius: 4px;
   resize: none;
+  transition: var(--transition);
 }
 
 .contact-form input::placeholder,
@@ -417,7 +497,8 @@ nav ul li a {
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
-  border: 1px solid #7d7d7d;
+  border: 1px solid var(--primaryIconColor);
+  box-shadow: 0 0 0 3px rgba(126, 116, 241, 0.2);
 }
 
 .btn-submit {
@@ -426,13 +507,16 @@ nav ul li a {
   background-color: var(--primaryIconColor);
   color: #fff;
   border: none;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: 0.2s ease-in-out;
+  font-weight: 500;
+  transition: var(--transition);
 }
 
 .btn-submit:hover {
   background-color: var(--primaryIconColorHover);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(126, 116, 241, 0.3);
 }
 
 /* Contact Section - Right Side */
@@ -440,6 +524,11 @@ nav ul li a {
   display: flex;
   gap: 1.5rem;
   margin-bottom: 2.5rem;
+  transition: var(--transition);
+}
+
+.contact-item:hover {
+  transform: translateX(5px);
 }
 
 .contact-item-detail {
@@ -448,17 +537,26 @@ nav ul li a {
 
 .contact-item-icon {
   background: var(--thirdBackgroundColor);
-  /* padding: 0.8rem 1rem; */
   width: 53px;
   height: 53px;
   border-radius: 9px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: var(--transition);
+}
+
+.contact-item:hover .contact-item-icon {
+  background-color: var(--primaryIconColor);
+}
+
+.contact-item:hover .contact-item-icon svg {
+  fill: white;
 }
 
 .contact-item-icon svg {
   fill: var(--primaryIconColor);
+  transition: var(--transition);
 }
 
 .contact-item-detail h4 {
@@ -474,39 +572,153 @@ footer {
 
 .footer-icons {
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .footer-icons a {
-  margin: 0 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f1f1f1;
+  transition: var(--transition);
 }
 
 .footer-icons svg {
   fill: #3e3f40;
+  transition: var(--transition);
+}
+
+.footer-icons a:hover {
+  background-color: var(--primaryIconColor);
+  transform: translateY(-3px);
 }
 
 .footer-icons a:hover svg {
-  fill: #000;
+  fill: white;
 }
 
 .scroll-to-top {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 50px;
-  height: 50px;
-  background-color: #989292;
+  width: 45px;
+  height: 45px;
+  background-color: var(--primaryIconColor);
   color: white;
   border: none;
   border-radius: 50%;
   font-size: 24px;
-  display: none; /* Sembunyikan tombol awalnya */
+  display: none; /* Hide button initially */
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: opacity 0.3s, transform 0.3s;
+  transition: var(--transition);
+  z-index: 99;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
 .scroll-to-top:hover {
-  background-color: #DCDCDC;
+  background-color: var(--primaryIconColorHover);
   transform: scale(1.1);
+}
+
+/* Media Queries for Responsive Design */
+
+@media screen and (max-width: 992px) {
+  :root {
+    --sectionPadding: 4rem 0;
+  }
+  
+  #hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2rem;
+  }
+  
+  .hero-left {
+    order: 2;
+  }
+  
+  .hero-right {
+    order: 1;
+  }
+  
+  .pre-title {
+    margin: 0 auto;
+  }
+  
+  .education-years {
+    margin-bottom: 2rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .burger {
+    display: block;
+    cursor: pointer;
+  }
+  
+  nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100vh;
+    background: white;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  nav.active {
+    transform: translateX(0);
+  }
+  
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .portfolio-tags {
+    flex-wrap: wrap;
+  }
+  
+  .skills-grid {
+    gap: 2rem;
+  }
+  
+  .grid-3 {
+    gap: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  :root {
+    --sectionPadding: 3rem 0;
+  }
+  
+  .section-title {
+    margin: 1rem 0 2rem;
+  }
+  
+  .skills-grid, .contact {
+    grid-template-columns: 1fr;
+  }
+  
+  .skills-list {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .portfolio-title {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
