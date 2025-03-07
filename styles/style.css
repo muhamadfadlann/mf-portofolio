@@ -144,6 +144,12 @@ nav ul {
   align-items: center;
   font-weight: 700;
   font-size: clamp(1.5rem, 3vw, 2rem);
+  transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+
+}
+
+.logo:hover {
+  transform: scale(1.1);
 }
 
 .logo a {
