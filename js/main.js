@@ -19,6 +19,11 @@ const navSlide = () => {
     }
   };
 
+  document.querySelector('.logo a').addEventListener('click', function(event) {
+    event.preventDefault(); // No reload
+  });
+  
+
   document.addEventListener("DOMContentLoaded", function () {
     const scrollToTopBtn = document.getElementById("scrollToTop");
   
