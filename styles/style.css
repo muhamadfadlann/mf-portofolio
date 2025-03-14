@@ -160,6 +160,12 @@ nav ul {
   color: var(--primaryTextColor);
 }
 
+.logo img {
+  width: 35px;
+  height: 36px;
+  margin-right: 10px;
+}
+
 /* Navigation Menu */
 nav ul li {
   display: flex;
